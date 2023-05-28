@@ -18,6 +18,10 @@ export default defineConfig({
       { find: "@common", replacement: path.resolve(__dirname, "./src/common") },
       { find: "@lib", replacement: path.resolve(__dirname, "./src/lib") },
       {
+        find: "@webp",
+        replacement: path.resolve(__dirname, "./src/assets/webp"),
+      },
+      {
         find: "@ui",
         replacement: path.resolve(__dirname, "./src/common/components/ui"),
       },
