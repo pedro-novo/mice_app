@@ -9,6 +9,7 @@
       "@common/*": ["src/common/*"],
       "@lib/*": ["src/lib/*"],
       "@ui/*": ["src/common/components/ui/*"],
+      "@webp/*": ["src/assets/webp/*"],
       "@/*": ["src/*"]
     },
 
