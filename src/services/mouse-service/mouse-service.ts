@@ -1,4 +1,3 @@
-import { Shape } from "@common/enums/shape";
 import { Mouse } from "../../common/interfaces/mouse";
 import { axios } from "../../setup/axios/axios-config";
 
@@ -7,9 +6,7 @@ export class MouseService {
     const path = "/mice";
 
     const brand_q = brand ? brand : undefined;
-    const shape_q = shape ? (shape.toUpperCase() as Shape) : undefined;
-
-    console.log({ shape_q });
+    const shape_q = shape ? shape.toUpperCase() : undefined;
 
     const params = { brand: brand_q, shape: shape_q };
 
@@ -18,7 +15,7 @@ export class MouseService {
     return data;
   }
 
-  static async getMouseById({ id }: { id: string }) {
+  static async getMouseById({ id }: { id?: string }) {
     const path = `/mice/${id}`;
 
     const { data } = await axios.get<Mouse>(path);

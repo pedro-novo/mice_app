@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Mouse } from "@common/interfaces/mouse";
+import { MoreVertical } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -15,55 +17,54 @@ interface Props {
 }
 
 const headers = [
-  "Brand",
-  "Model",
-  "Width",
-  "Height",
-  "Length",
-  "Weight",
-  "Shape",
-  "Wireless",
-  "Sensor",
-  "MCU",
-  "DPI",
-  "Polling Rate",
-  "Switches",
-  "Mouse Wheel Encoder",
-  "Material",
-  "Launch Date",
+  "brand",
+  "model",
+  "width",
+  "height",
+  "length",
+  "weight",
+  "more",
 ];
 
 const MiceTable: React.FC<Props> = ({ mice }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="w-full mt-10 px-20">
+    <div className="w-full mt-10">
       <Table>
         <TableCaption>A list of mice.</TableCaption>
         <TableHeader>
           <TableRow>
             {headers.map((header) => (
-              <TableHead key={header}>{header}</TableHead>
+              <TableHead key={header} className="capitalize">
+                {header === "width" || header === "height" ? (
+                  <>
+                    {header}
+                    <br />
+                    {"F | M | B"}
+                  </>
+                ) : (
+                  header
+                )}
+              </TableHead>
             ))}
           </TableRow>
         </TableHeader>
         <TableBody>
           {mice?.map((mouse) => (
             <TableRow key={mouse.id}>
-              <TableCell>{mouse.brand}</TableCell>
+              <TableCell className="capitalize">{mouse.brand}</TableCell>
               <TableCell>{mouse.model}</TableCell>
-              <TableCell>{mouse.width}</TableCell>
-              <TableCell>{mouse.height}</TableCell>
+              <TableCell>{`${mouse.width[0]} | ${mouse.width[1]} | ${mouse.width[2]}`}</TableCell>
+              <TableCell>{`${mouse.height[0]} | ${mouse.height[1]} | ${mouse.height[2]}`}</TableCell>
               <TableCell>{mouse.length}</TableCell>
               <TableCell>{mouse.weight}</TableCell>
-              <TableCell>{mouse.shape}</TableCell>
-              <TableCell>{mouse.wireless}</TableCell>
-              <TableCell>{mouse.sensor}</TableCell>
-              <TableCell>{mouse.mcu}</TableCell>
-              <TableCell>{mouse.dpi}</TableCell>
-              <TableCell>{mouse.polling_rate}</TableCell>
-              <TableCell>{mouse.switches}</TableCell>
-              <TableCell>{mouse.mouse_wheel_encoder}</TableCell>
-              <TableCell>{mouse.material}</TableCell>
-              <TableCell>{mouse.launch_date?.toString()}</TableCell>
+              <TableCell
+                className="cursor-pointer"
+                onClick={() => navigate(`/${mouse.id}`)}
+              >
+                <MoreVertical />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

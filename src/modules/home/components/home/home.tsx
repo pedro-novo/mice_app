@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-hidden mt-10 mx-10 p-4 border rounded">
       <OptionsHeader
         brand={{ value: brand, onChange: onBrandChange }}
         shape={{ value: shape, onChange: onShapeChange }}

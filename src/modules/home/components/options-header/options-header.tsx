@@ -20,7 +20,7 @@ interface Props {
 
 const OptionsHeader: React.FC<Props> = ({ brand, shape, size }) => {
   return (
-    <div className="w-full px-20 mt-20 flex items-center justify-start gap-4">
+    <div className="w-full flex items-center justify-start gap-4">
       <BrandDropdown brand={brand} />
       <SizeDropdown selected={size} />
       <ShapeDropdown selected={shape} />
