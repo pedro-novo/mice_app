@@ -1,11 +1,19 @@
+import { Shape } from "@common/enums/shape";
 import { Mouse } from "../../common/interfaces/mouse";
 import { axios } from "../../setup/axios/axios-config";
 
 export class MouseService {
-  static async getMice() {
+  static async getMice({ brand, shape }: { brand?: string; shape?: string }) {
     const path = "/mice";
 
-    const { data } = await axios.get<Mouse[]>(path);
+    const brand_q = brand ? brand : undefined;
+    const shape_q = shape ? (shape.toUpperCase() as Shape) : undefined;
+
+    console.log({ shape_q });
+
+    const params = { brand: brand_q, shape: shape_q };
+
+    const { data } = await axios.get<Mouse[]>(path, { params });
 
     return data;
   }

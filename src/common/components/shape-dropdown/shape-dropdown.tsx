@@ -2,72 +2,28 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@ui/command";
+import { Command, CommandGroup, CommandItem } from "@ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/popover";
 
-const brands = [
+const shapes = [
   {
-    value: "asus",
-    label: "Asus",
+    value: "ergonomic",
+    label: "Ergonomic",
   },
   {
-    value: "corsair",
-    label: "Corsair",
-  },
-  {
-    value: "endgame",
-    label: "EndGame",
-  },
-  {
-    value: "finalmouse",
-    label: "Finalmouse",
-  },
-  {
-    value: "glorious",
-    label: "Glorious",
-  },
-  {
-    value: "hyperx",
-    label: "HyperX",
-  },
-  {
-    value: "logitech",
-    label: "Logitech",
-  },
-  {
-    value: "razer",
-    label: "Razer",
-  },
-  {
-    value: "steelseries",
-    label: "Steelseries",
-  },
-
-  {
-    value: "xtrfy",
-    label: "Xtrfy",
-  },
-
-  {
-    value: "zowie",
-    label: "Zowie",
+    value: "ambidextrous",
+    label: "Ambidextrous",
   },
 ];
 
 interface Props {
-  brand: {
+  selected: {
     value?: string;
-    onChange: (brand: string) => void;
+    onChange: (shape: string) => void;
   };
 }
 
-const BrandDropdown: React.FC<Props> = ({ brand: { value, onChange } }) => {
+const ShapeDropdown: React.FC<Props> = ({ selected: { value, onChange } }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -80,19 +36,17 @@ const BrandDropdown: React.FC<Props> = ({ brand: { value, onChange } }) => {
           className="w-[200px] justify-between"
         >
           {value
-            ? brands.find((brand) => brand.value === value)?.label
-            : "Select brand..."}
+            ? shapes.find((option) => option.value === value)?.label
+            : `Select shape...`}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search brand..." />
-          <CommandEmpty>No brand found.</CommandEmpty>
           <CommandGroup>
-            {brands.map((brand) => (
+            {shapes.map((option) => (
               <CommandItem
-                key={brand.value}
+                key={option.value}
                 onSelect={(currentValue) => {
                   onChange(currentValue === value ? "" : currentValue);
                   setOpen(false);
@@ -101,10 +55,10 @@ const BrandDropdown: React.FC<Props> = ({ brand: { value, onChange } }) => {
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === brand.value ? "opacity-100" : "opacity-0"
+                    value === option.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {brand.label}
+                {option.label}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -114,4 +68,4 @@ const BrandDropdown: React.FC<Props> = ({ brand: { value, onChange } }) => {
   );
 };
 
-export default BrandDropdown;
+export default ShapeDropdown;
